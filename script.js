@@ -9,7 +9,7 @@ function updateDisplay() {
 }
 
 function appendNumber(num) {
-  if (num === "-") {
+  if (num === "+/-") {
     toggleSign()
     return
   }
@@ -87,8 +87,12 @@ function deleteLast() {
 }
 
 function toggleSign() {
-  const num = Number.parseFloat(currentInput)
-  currentInput = (num * -1).toString()
+  if (currentInput === "0") return
+  if (currentInput.startsWith("-")) {
+    currentInput = currentInput.slice(1)
+  } else {
+    currentInput = "-" + currentInput
+  }
   updateDisplay()
 }
 
@@ -105,6 +109,7 @@ document.querySelectorAll(".btn-function").forEach((btn) => {
     const action = e.target.getAttribute("data-action")
     if (action === "clear") clearDisplay()
     else if (action === "delete") deleteLast()
+    else if (action === "toggle-sign") toggleSign()
     else if (action === "percent") {
       const num = Number.parseFloat(currentInput)
       currentInput = (num / 100).toString()
