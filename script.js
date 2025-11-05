@@ -9,7 +9,7 @@ function updateDisplay() {
 }
 
 function appendNumber(num) {
-  if (num === "+/-") {
+  if (num === "-") {
     toggleSign()
     return
   }
