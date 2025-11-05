@@ -1,59 +1,120 @@
-const display = document.getElementById('display');
-const themeSwitch = document.getElementById('themeSwitch');
+const display = document.getElementById("display")
+let currentInput = "0"
+let operator = null
+let previousInput = null
+let shouldResetDisplay = false
 
-// Handle button clicks
-function appendCharacter(char) {
-    if (display.innerText === '0' && char !== '.') {
-        display.innerText = char;
+function updateDisplay() {
+  display.value = currentInput
+}
+
+function appendNumber(num) {
+  if (num === "+/-") {
+    toggleSign()
+    return
+  }
+
+  if (shouldResetDisplay) {
+    currentInput = num
+    shouldResetDisplay = false
+  } else {
+    if (currentInput === "0" && num !== ".") {
+      currentInput = num
+    } else if (num === "." && currentInput.includes(".")) {
+      return
     } else {
-        display.innerText += char;
+      currentInput += num
     }
+  }
+  updateDisplay()
+}
+
+function appendOperator(op) {
+  if (operator !== null && !shouldResetDisplay) {
+    calculate()
+  }
+  previousInput = currentInput
+  operator = op
+  shouldResetDisplay = true
+}
+
+function calculate() {
+  if (operator === null || previousInput === null) return
+
+  let result
+  const prev = Number.parseFloat(previousInput)
+  const current = Number.parseFloat(currentInput)
+
+  switch (operator) {
+    case "+":
+      result = prev + current
+      break
+    case "-":
+      result = prev - current
+      break
+    case "*":
+      result = prev * current
+      break
+    case "/":
+      result = current !== 0 ? prev / current : 0
+      break
+    default:
+      return
+  }
+
+  currentInput = result.toString()
+  operator = null
+  previousInput = null
+  shouldResetDisplay = true
+  updateDisplay()
 }
 
 function clearDisplay() {
-    display.innerText = '0';
+  currentInput = "0"
+  operator = null
+  previousInput = null
+  shouldResetDisplay = false
+  updateDisplay()
 }
 
 function deleteLast() {
-    let text = display.innerText;
-    display.innerText = text.length > 1 ? text.slice(0, -1) : '0';
+  if (currentInput.length === 1) {
+    currentInput = "0"
+  } else {
+    currentInput = currentInput.slice(0, -1)
+  }
+  updateDisplay()
 }
 
-function calculateResult() {
-    try {
-        let result = eval(display.innerText);
-        if (result === Infinity || isNaN(result)) {
-            display.innerText = 'Error';
-        } else {
-            display.innerText = result;
-        }
-    } catch {
-        display.innerText = 'Error';
+function toggleSign() {
+  const num = Number.parseFloat(currentInput)
+  currentInput = (num * -1).toString()
+  updateDisplay()
+}
+
+document.querySelectorAll(".btn-number").forEach((btn) => {
+  btn.addEventListener("click", (e) => appendNumber(e.target.textContent))
+})
+
+document.querySelectorAll(".btn-operator").forEach((btn) => {
+  btn.addEventListener("click", (e) => appendOperator(e.target.getAttribute("data-operator")))
+})
+
+document.querySelectorAll(".btn-function").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const action = e.target.getAttribute("data-action")
+    if (action === "clear") clearDisplay()
+    else if (action === "delete") deleteLast()
+    else if (action === "percent") {
+      const num = Number.parseFloat(currentInput)
+      currentInput = (num / 100).toString()
+      updateDisplay()
     }
-}
+  })
+})
 
-// 🎹 Keyboard support
-document.addEventListener('keydown', (event) => {
-    const key = event.key;
-    if (!isNaN(key) || ['+', '-', '*', '/', '.'].includes(key)) {
-        appendCharacter(key);
-    } else if (key === 'Enter') {
-        calculateResult();
-    } else if (key === 'Backspace') {
-        deleteLast();
-    } else if (key.toLowerCase() === 'c') {
-        clearDisplay();
-    }
-});
+document.querySelectorAll(".btn-equals").forEach((btn) => {
+  btn.addEventListener("click", calculate)
+})
 
-// 🌙 Dark mode toggle
-themeSwitch.addEventListener('change', () => {
-    document.body.classList.toggle('dark');
-    localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-});
-
-// Load saved theme
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark');
-    themeSwitch.checked = true;
-}
+updateDisplay()
