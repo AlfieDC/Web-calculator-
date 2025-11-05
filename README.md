@@ -1,74 +1,121 @@
-#🧮 Simple Calculator Web App
+# Web Calculator
 
-A clean, responsive, and minimalist calculator built using HTML, CSS, and JavaScript.
-This project features keyboard support, a dark/light mode toggle, and smooth UI interactions for an enjoyable user experience.
+A clean, modern, and fully responsive web calculator built with HTML, CSS, and JavaScript. Designed with a minimalist aesthetic, this calculator provides a smooth user experience on all device sizes.
 
----
+## Features
 
-🌟 Features
+- **Basic Operations**: Addition, subtraction, multiplication, and division
+- **Decimal Support**: Full support for decimal numbers
+- **Sign Toggle**: +/− button to toggle between positive and negative numbers
+- **Percentage Calculation**: Convert numbers to percentages
+- **Delete Function**: Remove the last digit without clearing the entire display
+- **Clear Function**: Reset the calculator with the AC (All Clear) button
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Smooth Animations**: Subtle hover effects and transitions for better UX
+- **Minimalist UI**: Clean, uncluttered interface with intuitive color coding
 
-- Basic Arithmetic Operations — Addition, Subtraction, Multiplication, and Division
-- Keyboard Support — Type numbers and operators directly from your keyboard
-- Dark/Light Mode — Toggle themes with a switch; preference is saved automatically
-- Responsive Design — Optimized layout for both desktop and mobile screens
-- Error Handling — Displays “Error” for invalid or undefined calculations
-- Minimalist UI — Clean color palette with soft shadows and rounded elements
+## File Structure
 
----
+\`\`\`
+.
+├── index.html      # HTML markup and calculator layout
+├── styles.css      # Styling and responsive design
+├── script.js       # Calculator logic and event handling
+└── README.md       # Project documentation
+\`\`\`
 
-🧰 Technologies Used
+## Getting Started
 
-- HTML5 — Structure of the calculator interface
-- CSS3 — Modern, minimalist styling with responsive grid layout
-- JavaScript (ES6) — Handles logic, dark mode, and keyboard functionality
+1. **Clone or Download** the project files
+2. **Open `index.html`** in your web browser
+3. Start calculating!
 
----
+No installation or dependencies required. It's a standalone project that works in any modern browser.
 
-🚀 Setup and Usage
+## Button Functions
 
-1. Clone or Download this repository:
-git clone https://github.com/AlfieDC/Web-calculator-.git
-2. Navigate to the project folder:
-cd simple-calculator
-3. Open "index.html" in your browser:
-   - Double-click the file
-   - Or run a local server using VS Code Live Server
+### Number Buttons (0-9)
+Click to add numbers to the display. Multiple numbers can be combined.
 
----
+### Operators (+, −, ×, /)
+- **+**: Addition
+- **−**: Subtraction
+- **×**: Multiplication
+- **/**: Division
 
-🎹 Keyboard Shortcuts
+### Function Buttons
+- **AC**: All Clear - Resets the calculator to 0
+- **DEL**: Delete - Removes the last digit
+- **%**: Percentage - Converts the number to a percentage (divides by 100)
+- **+/−**: Toggle Sign - Changes the number between positive and negative
 
-Key| Action
-0–9| Enter numbers
-+, -, *, /| Operators
-.| Decimal point
-Enter| Calculate result
-Backspace| Delete last input
-C| Clear display
+### Special Buttons
+- **.**: Decimal Point - Add decimals to your numbers
+- **=**: Equals - Execute the calculation
 
----
+## Design Highlights
 
-🌗 Dark Mode
+### Color Scheme
+- **Number Buttons**: Light gray background
+- **Operators**: Blue background
+- **Equals Button**: Green background
+- **Function Buttons**: Dark gray background
 
-Use the toggle button in the top-right corner to switch between light and dark themes.
-Your theme preference is saved automatically in your browser’s local storage.
+### Responsive Breakpoints
+- **Desktop**: Full size display and buttons
+- **Tablet (≤480px)**: Scaled down padding and font sizes
+- **Mobile (≤360px)**: Optimized for small screens with reduced spacing
 
----
+## Example Usage
 
-📱 Responsive Design
+1. Calculate `15 + 23`:
+   - Click: `1` → `5` → `+` → `2` → `3` → `=`
+   - Result: `38`
 
-The layout automatically adjusts for different screen sizes.
-Try resizing your browser window or testing it on a mobile device!
+2. Convert `50` to negative:
+   - Click: `5` → `0` → `+/−`
+   - Display: `-50`
 
----
+3. Calculate percentage:
+   - Click: `2` → `5` → `%`
+   - Display: `0.25` (which is 25%)
 
-🧑‍💻 Author
+## Browser Support
 
-Alfie Dyne Castro
-Made with ❤️ using HTML, CSS, and JavaScript.
+Works on all modern browsers including:
+- Chrome/Chromium
+- Firefox
+- Safari
+- Edge
 
----
+## Technical Details
 
-📄 License
+### HTML Structure
+- Single input field for display (read-only)
+- 4-column CSS Grid for button layout
+- Semantic button elements with data attributes
 
-This project is open-source and free to use for educational or personal purposes.
+### CSS Features
+- CSS Grid for layout
+- CSS Flexbox for centering
+- Media queries for responsive design
+- CSS transitions for smooth interactions
+- Linear gradient background
+
+### JavaScript Logic
+- Event delegation for button clicks
+- State management for current input, operators, and previous values
+- Input validation (prevents multiple decimals, etc.)
+- Safe division (prevents division by zero)
+
+## Tips & Tricks
+
+- Use your **keyboard** to input numbers and operators (1-9, 0, +, -, *, /, .)
+- Press **Enter** or **=** to calculate
+- Press **Backspace** to delete the last digit
+- Click **AC** to clear and start over
+
+## License
+
+Free to use and modify for personal or commercial projects.
+
